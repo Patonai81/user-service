@@ -27,7 +27,7 @@ public class UserController {
         if (null == userDTO){
             return ResponseEntity.badRequest().build();
         }else {
-         log.info("User has been cussessfully createdd!");
+         log.info("User has been cussessfully created!");
          return ResponseEntity.ok( userMapper.toUserDTO(userService.createUser(userMapper.toUser(userDTO))));
         }
     }
