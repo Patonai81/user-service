@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @Slf4j
-@Controller
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class FacebookLoginController {
 
  private final CommunityLoginService communityLoginService;
@@ -23,11 +22,9 @@ public class FacebookLoginController {
     @RequestMapping("/fbLoginSuccess")
     public String onFacebookLoginSuccess(Map<String,Object> model, OAuth2AuthenticationToken oAuth2AuthenticationToken
     , @AuthenticationPrincipal OAuth2User user){
-    //    String fullName = oAuth2AuthenticationToken.getPrincipal().getAttribute("email");
        String token = communityLoginService.extractToken(oAuth2AuthenticationToken);
-   //     model.put("fullName",fullName);
-   //     model.put("token",token);
-   //     return "home";
-        return "success";
+       model.put("fullName",user.getAttribute("name"));
+       model.put("token",token);
+       return "home";
     }
 }
