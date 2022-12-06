@@ -22,7 +22,15 @@ public class UserService {
     public AppUser createUser(AppUser appUser){
       log.info("Create user has been called");
       log.info(appUser.toString());
-      setDefault(appUser);
+      AppUser user = userRepository.findByUserName(appUser.getUsername());
+      if (null!= user){
+          user.setPassword(passwordEncoder.encode(appUser.getPassword()));
+          return userRepository.save(user);
+
+      }else {
+          setDefault(appUser);
+      }
+
       return userRepository.save(appUser);
 
     }
