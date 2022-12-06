@@ -1,13 +1,16 @@
 package hu.webuni.userservice.service;
 
+import hu.webuni.userservice.dto.FacebookDTO;
 import hu.webuni.userservice.model.AppUser;
 import hu.webuni.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Set;
 
@@ -46,26 +49,22 @@ public class CommunityLoginService {
        return byFacebookId;
     }
 
-
-/*
-    public UserDetails getUserDetailsFromFBToken(String fbToken) {
-          FacebookData facebookData = getDataFromFacebook(fbToken);
+    public AppUser getUserDetailsFromFBToken(String fbToken) {
+          FacebookDTO facebookData = getDataFromFacebook(fbToken);
           log.info("Facebook data: ");
           log.info(facebookData.toString());
-          return findOrCreateUserByFaceBookId(String.valueOf(facebookData.getId()), facebookData.getEmail());
+          return userRepository.findByUserName(String.valueOf(facebookData.getEmail()));
     }
 
-
-
-    private FacebookData getDataFromFacebook(String fbToken){
+    private FacebookDTO getDataFromFacebook(String fbToken){
        return  WebClient.create(FB_URL).get()
                 .uri(uriBuilder -> {return uriBuilder.path("/me").queryParam("fields","email,name").build();})
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(fbToken))
                 .retrieve()
-                .bodyToMono(FacebookData.class)
+                .bodyToMono(FacebookDTO.class)
                 .block();
     }
 
- */
+
 
 }
