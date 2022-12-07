@@ -22,10 +22,6 @@ public class UserServiceSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
-
-  //  @Autowired
- //   JwtFilter jwtFilter;
-
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -57,31 +53,6 @@ public class UserServiceSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    /*
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //  http.httpBasic()
-        http.csrf().disable()
-                //OAUTH miatt ki kell kapcsolni
-                //   .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                //   .and()
-                .authorizeRequests()
-                .antMatchers("/services/**").permitAll()
-                .antMatchers("/oauth2/**").permitAll()
-                .antMatchers("/fbLoginSuccess").permitAll()
-                .antMatchers("/topic/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/teacher/**").hasAnyAuthority("USER", "ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2Login()
-                .defaultSuccessUrl("/fbLoginSuccess", true);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-      //http://localhost:8083/szabi/login/oauth2/fbLoginSuccess
-       // http://localhost:8083/szabi/login/oauth2/googleLoginSuccess
-    }
-*/
 
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
